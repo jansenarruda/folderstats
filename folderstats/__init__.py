@@ -22,12 +22,17 @@ def calculate_hash(filepath, hash_name):
         return checksum.hexdigest()
 
 
-def _recursive_folderstats(folderpath, items=[], hash_name=None,
+def _recursive_folderstats(folderpath, items=None, hash_name=None, 
                            ignore_hidden=False, depth=0, idx=1, parent_idx=0,
-                           verbose=False):
+                           verbose=False) : 
+    #changed _recursive_folderstats signature - items = [] to items=None
     """Helper function that recursively collects folder statistics and returns current id, foldersize and number of files traversed."""
     foldersize, num_files = 0, 0
     current_idx = idx
+    
+    #added items = [] to prevent duplicate on next folderstats() call
+    
+    items = []
 
     for f in os.listdir(folderpath):
         if ignore_hidden and f.startswith('.'):
